@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     AppstoreOutlined,
     BarChartOutlined,
@@ -9,7 +9,7 @@ import {
     UserOutlined,
     VideoCameraOutlined,
 } from '@ant-design/icons';
-import {ConfigProvider, Layout, theme} from 'antd';
+import {Alert, ConfigProvider, Layout, theme} from 'antd';
 import Login from "./pages/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Nav from "./Components/Nav";
@@ -17,6 +17,8 @@ import Signup from "./pages/Signup";
 import "./App.css"
 import Head from "./Components/Head";
 import Home from "./pages/Home";
+import UserBar from "./Components/UserBar";
+import Cookies from "universal-cookie";
 
 const {Content, Sider} = Layout;
 [
@@ -33,6 +35,10 @@ const {Content, Sider} = Layout;
     icon: React.createElement(icon),
     label: `nav ${index + 1}`,
 }));
+
+const base_url = "https://wrmtvghyf3.execute-api.us-east-2.amazonaws.com/dev"
+const api_key = "YE8iRuDxUl9Dsrgv4YSYw2N78epi6fIeQaG18OUj"
+
 const App = () => {
     const {
         token: {colorBgContainer},
@@ -40,6 +46,42 @@ const App = () => {
 
     const [login, setLogin] = React.useState(false)
     const [collapse, setCollapse] = React.useState(true)
+    const [userInfo, setUserInfo] = React.useState()
+    const [loadCookie, setLoadCookie] = React.useState(false)
+    const cookie = new Cookies()
+
+    useEffect( () => {
+        if (cookie.get("user") === null || loadCookie) return;
+
+        const getUser = async (username) => {
+            const request = {
+                method: "GET",
+                headers: {
+                    "x-api-key": api_key
+                }
+            }
+
+            try {
+                const response = await (fetch(base_url + `/get-user-info?user_name=${username}`, request))
+                const data = await (response.json())
+
+                if (response.ok) {
+                    setLogin(true);
+                    setUserInfo(data["data"][0])
+                } else {
+                    console.log("Error", data["error-message"])
+                }
+            } catch (e) {
+                console.log("Failed request: ", e)
+            }
+
+        }
+
+        getUser(cookie.get("user")).catch(console.error)
+        setLoadCookie(true)
+    })
+
+    // getUser()
 
     // Sample Items for MusicCard
     const items = []
@@ -89,7 +131,6 @@ const App = () => {
                             minHeight: "100vh"
                         }}
                     >
-
                         <div
                             style = {{
                                 padding: 24,
@@ -100,31 +141,41 @@ const App = () => {
                         >
                             <Routes>
                                 <Route path = {"/home"} element = {<Home items = {items}/>}/>
-                                <Route path = {"/login"} element = {<Login/>}/>
-                                <Route path = {"/signup"} element = {<Signup/>}/>
+                                <Route path = {"/login"} element = {<Login setLogin = {setLogin}
+                                                                           setUserInfo = {setUserInfo}
+                                                                           base_url = {base_url}
+                                                                           api_key = {api_key}/>}/>
+                                <Route path = {"/signup"} element = {<Signup base_url = {base_url}
+                                                                             api_key = {api_key}/>}/>
                                 <Route path = {"/"} element = {<Navigate to = {"/home"}/>}/>
                             </Routes>
                         </div>
                     </Content>
                 </Layout>
 
-
-                <Sider
-                    collapsible
-                    collapsed = {collapse}
-                    collapsedWidth = {0}
-                    style = {{
-                        overflow: 'auto',
-                        height: '100vh',
-                        position: 'fixed',
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                    }}
-                    width = {300}
-                    theme = {"light"}
-                >
-                </Sider>
+                {
+                    login ?
+                        (<Sider
+                            collapsible
+                            collapsed = {collapse}
+                            collapsedWidth = {0}
+                            style = {{
+                                overflow: 'auto',
+                                height: '100vh',
+                                position: 'fixed',
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                            }}
+                            width = {300}
+                            theme = {"light"}
+                        >
+                            <UserBar userInfo = {userInfo}
+                                     setLogin = {setLogin}
+                                     setUserInfo = {setUserInfo}
+                                     setCollapse = {setCollapse}/>
+                        </Sider>) : (<div/>)
+                }
             </Layout>
         </ConfigProvider>
     );

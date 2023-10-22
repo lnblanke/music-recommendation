@@ -1,26 +1,7 @@
 # Upload music_features.csv to database
 import pandas as pd
-import mysql.connector
 import yaml
-
-# Establish connection with MySQL
-def get_connection(database_config):
-    cnx = mysql.connector.connect(
-        host = database_config["host"],
-        user = database_config["user"],
-        password = database_config["password"],
-        database = database_config["database"],
-        port = database_config["port"]
-    )
-    return cnx
-
-# Query into MySQL
-def query(cnx, query):
-    cursor = cnx.cursor()
-    cnx.start_transaction
-    cursor.execute(query)
-    cnx.commit()
-    cursor.close()
+from mysql import get_connection, query
 
 if __name__ == "__main__":
     # Get config file and connect to MySQL
