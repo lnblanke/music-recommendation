@@ -5,7 +5,7 @@ const Home = (props) => {
 
     return (
         <div>
-            {items.map(prop => <MusicCard {...prop}/>)}
+            {items.map(prop => <MusicCard key={"MusicCard" + prop["id"]} {...prop}/>)}
         </div>
     )
 }

@@ -1,15 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    TeamOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
-import {Alert, ConfigProvider, Layout, theme} from 'antd';
+import {ConfigProvider, Layout, theme} from 'antd';
 import Login from "./pages/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Nav from "./Components/Nav";
@@ -19,23 +9,9 @@ import Head from "./Components/Head";
 import Home from "./pages/Home";
 import UserBar from "./Components/UserBar";
 import Cookies from "universal-cookie";
+import User from "./pages/User";
 
 const {Content, Sider} = Layout;
-[
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    AppstoreOutlined,
-    TeamOutlined,
-    ShopOutlined,
-].map((icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-}));
-
 const base_url = "https://wrmtvghyf3.execute-api.us-east-2.amazonaws.com/dev"
 const api_key = "YE8iRuDxUl9Dsrgv4YSYw2N78epi6fIeQaG18OUj"
 
@@ -62,7 +38,7 @@ const App = () => {
             }
 
             try {
-                const response = await (fetch(base_url + `/get-user-info?user_name=${username}`, request))
+                const response = await (fetch(base_url + `/get-user-info?username=${username}`, request))
                 const data = await (response.json())
 
                 if (response.ok) {
@@ -74,14 +50,11 @@ const App = () => {
             } catch (e) {
                 console.log("Failed request: ", e)
             }
-
         }
 
         getUser(cookie.get("user")).catch(console.error)
         setLoadCookie(true)
     })
-
-    // getUser()
 
     // Sample Items for MusicCard
     const items = []
@@ -147,6 +120,10 @@ const App = () => {
                                                                            api_key = {api_key}/>}/>
                                 <Route path = {"/signup"} element = {<Signup base_url = {base_url}
                                                                              api_key = {api_key}/>}/>
+                                <Route path = {"/user"} element = {<User base_url = {base_url}
+                                                                         api_key = {api_key}
+                                                                         userInfo = {userInfo}
+                                                                         setUserInfo = {setUserInfo}/>}/>
                                 <Route path = {"/"} element = {<Navigate to = {"/home"}/>}/>
                             </Routes>
                         </div>
