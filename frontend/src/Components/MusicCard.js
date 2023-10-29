@@ -4,7 +4,6 @@ import {Card} from 'antd';
 const {Meta} = Card;
 const MusicCard = (props) => {
     const {id, song, singer, album} = props
-    console.log(id + " " + song + " " + singer)
     return (
         <Card
             hoverable
@@ -12,7 +11,6 @@ const MusicCard = (props) => {
                 width: "70vw",
                 margin: "20px"
             }}
-            key = {id}
         >
             <Meta
                 title = {song}

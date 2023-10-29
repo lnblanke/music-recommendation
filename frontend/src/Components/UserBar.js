@@ -1,7 +1,5 @@
 import React from 'react';
-import SearchBar from "./SearchBar";
-import UploadFile from "./UploadFile";
-import {CloseOutlined, HistoryOutlined, PoweroffOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
+import {CloseOutlined, HistoryOutlined, PoweroffOutlined, UserOutlined} from "@ant-design/icons";
 import {Menu} from "antd";
 import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -13,8 +11,8 @@ const UserBar = (props) => {
     const item = [
         {
             key: 0,
-            icon: React.createElement(SettingOutlined),
-            label: "Setting"
+            icon: React.createElement(UserOutlined),
+            label: "User"
         },
         {
             key: 1,
@@ -38,7 +36,7 @@ const UserBar = (props) => {
         switch (item["key"]) {
             case "0":
                 setCollapse(true)
-                navigate("/setting")
+                navigate("/user")
                 break
             case "1":
                 setCollapse(true)
