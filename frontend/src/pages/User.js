@@ -1,5 +1,5 @@
-import UserInfoForm from "../Components/UserInfoForm";
-import MusicPreferenceWordCloud from "../Components/MusicPreferenceWordCloud";
+import UserInfoForm from "../components/UserInfoForm";
+import MusicPreferenceWordCloud from "../components/MusicPreferenceWordCloud";
 
 const User = (props) => {
     const {base_url, api_key, userInfo, setUserInfo} = props;

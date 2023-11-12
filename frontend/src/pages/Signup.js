@@ -2,8 +2,7 @@ import React from 'react';
 import {
     Button,
     Form,
-    Input, message,
-    Select,
+    Input, message, Select,
 } from 'antd';
 import {NavLink, useNavigate} from "react-router-dom";
 
@@ -43,7 +42,6 @@ const App = (props) => {
     const [form] = Form.useForm();
     const {base_url, api_key} = props
     const navigate = useNavigate()
-    const [messageAPI, context] = message.useMessage()
     const onFinish = async (values) => {
         const request = {
             method: "POST",
@@ -51,7 +49,7 @@ const App = (props) => {
                 "x-api-key": api_key
             },
             body: JSON.stringify({
-                "user_name": values["username"],
+                "username": values["username"],
                 "password": values["password"],
                 "email": values["email"],
                 "gender": values["gender"],
@@ -66,10 +64,7 @@ const App = (props) => {
             if (response.ok) {
                 navigate("/login")
             } else {
-                messageAPI.open({
-                    type: "error",
-                    content: data["error_message"],
-                })
+                message.error(data["error_message"])
             }
         } catch (e) {
             console.log("Failed request: ", e)
@@ -77,7 +72,6 @@ const App = (props) => {
     };
     return (
         <>
-            {context}
             <Form
                 {...formItemLayout}
                 form = {form}

@@ -2,17 +2,21 @@ import React, {useEffect} from 'react';
 import {ConfigProvider, Layout, theme} from 'antd';
 import Login from "./pages/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
-import Nav from "./Components/Nav";
 import Signup from "./pages/Signup";
 import "./App.css"
-import Head from "./Components/Head";
+import Head from "./components/Head";
 import Home from "./pages/Home";
-import UserBar from "./Components/UserBar";
+import UserBar from "./components/UserBar";
 import Cookies from "universal-cookie";
 import User from "./pages/User";
+import Analyze from "./pages/Analyze";
+import SearchBar from "./components/SearchBar";
+import UploadFile from "./components/UploadFile";
+import NotFound from "./pages/404";
 
 const {Content, Sider} = Layout;
-const base_url = "https://wrmtvghyf3.execute-api.us-east-2.amazonaws.com/dev"
+const base_url = "https://d7mnlmmxka.execute-api.us-east-2.amazonaws.com/dev"
+const ml_url = "https://nti8t75j5a.execute-api.us-east-2.amazonaws.com/Prod"
 const api_key = "YE8iRuDxUl9Dsrgv4YSYw2N78epi6fIeQaG18OUj"
 
 const App = () => {
@@ -24,10 +28,12 @@ const App = () => {
     const [collapse, setCollapse] = React.useState(true)
     const [userInfo, setUserInfo] = React.useState()
     const [loadCookie, setLoadCookie] = React.useState(false)
+    const [uploadTS, setUploadTS] = React.useState(null)
+    const [analyzed, setAnalyzed] = React.useState(false)
     const cookie = new Cookies()
 
-    useEffect( () => {
-        if (cookie.get("user") === null || loadCookie) return;
+    useEffect(() => {
+        if (cookie.get("user") === undefined || loadCookie) return;
 
         const getUser = async (username) => {
             const request = {
@@ -87,7 +93,18 @@ const App = () => {
                     width = {300}
                     theme = {"light"}
                 >
-                    <Nav/>
+                    <SearchBar/>
+
+                    <p
+                        style = {{
+                            paddingLeft: 20,
+                            paddingRight: 20
+                        }}
+                    > Upload a song</p>
+                    <UploadFile uploadTS = {uploadTS}
+                                setUploadTS = {setUploadTS}
+                                setAnalyzed = {setAnalyzed}
+                                api_key = {api_key}/>
                 </Sider>
                 <Layout
                     className = "site-layout"
@@ -113,18 +130,26 @@ const App = () => {
                             }}
                         >
                             <Routes>
-                                <Route path = {"/home"} element = {<Home items = {items}/>}/>
-                                <Route path = {"/login"} element = {<Login setLogin = {setLogin}
-                                                                           setUserInfo = {setUserInfo}
-                                                                           base_url = {base_url}
+                                <Route path = "/home" element = {<Home items = {items}/>}/>
+                                <Route path = "/login" element = {<Login setLogin = {setLogin}
+                                                                         setUserInfo = {setUserInfo}
+                                                                         base_url = {base_url}
+                                                                         api_key = {api_key}/>}/>
+                                <Route path = "/signup" element = {<Signup base_url = {base_url}
                                                                            api_key = {api_key}/>}/>
-                                <Route path = {"/signup"} element = {<Signup base_url = {base_url}
+                                <Route path = "/user" element = {<User base_url = {base_url}
+                                                                       api_key = {api_key}
+                                                                       userInfo = {userInfo}
+                                                                       setUserInfo = {setUserInfo}/>}/>
+                                <Route path = "/analyze" element = {<Analyze uploadTS = {uploadTS}
+                                                                             setUploadTS = {setUploadTS}
+                                                                             analyzed = {analyzed}
+                                                                             setAnalyzed = {setAnalyzed}
+                                                                             ml_url = {ml_url}
                                                                              api_key = {api_key}/>}/>
-                                <Route path = {"/user"} element = {<User base_url = {base_url}
-                                                                         api_key = {api_key}
-                                                                         userInfo = {userInfo}
-                                                                         setUserInfo = {setUserInfo}/>}/>
-                                <Route path = {"/"} element = {<Navigate to = {"/home"}/>}/>
+                                <Route path = "/404" element = {<NotFound/>}/>
+                                <Route path = "/" element = {<Navigate to = "/home"/>}/>
+                                <Route path = "*" element = {<Navigate to = "/404"/>}></Route>
                             </Routes>
                         </div>
                     </Content>

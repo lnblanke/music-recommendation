@@ -1,4 +1,4 @@
-import MusicCard from "../Components/MusicCard";
+import MusicCard from "../components/MusicCard";
 
 const Home = (props) => {
     const {items} = props

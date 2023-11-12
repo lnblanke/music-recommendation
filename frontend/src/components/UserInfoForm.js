@@ -7,7 +7,6 @@ const UserInfoForm = (props) => {
     const {base_url, api_key, userInfo, setUserInfo} = props
     const cols = ["", "Username", "Password", "Email", "Gender", "Bio"]
     const info = []
-    const [messageAPI, context] = message.useMessage()
 
     if (userInfo != null) {
         for (let i = 1; i < userInfo.length; i++)
@@ -31,10 +30,7 @@ const UserInfoForm = (props) => {
             const data = await (response.json())
 
             if (response.ok) {
-                messageAPI.open({
-                    type: "info",
-                    content: cols[index] + " successfully updated!"
-                })
+                message.info(cols[index] + " successfully updated!")
 
                 userInfo[index] = event.target.value
 
@@ -43,10 +39,7 @@ const UserInfoForm = (props) => {
                 for (let i = 1; i < userInfo.length; i++)
                     info.push([i, userInfo[i]])
             } else {
-                messageAPI.open({
-                    type: "error",
-                    content: data["error_message"],
-                })
+                message.error(data["error_message"])
 
                 setUserInfo(userInfo)
             }
@@ -57,7 +50,6 @@ const UserInfoForm = (props) => {
 
     return (
         <div>
-            {context}
             <h2> User Info </h2>
             <List
                 itemLayout="horizontal"
