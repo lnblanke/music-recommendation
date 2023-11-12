@@ -28,7 +28,7 @@ const Head = (props) => {
                     <a style = {{color: "black"}} onClick = {() => setCollapse(!collapse)}>
                         <i className = {"gg-profile"} style = {{
                             display: "inline-block",
-                            position: "fixed",
+                            position: "absolute",
                             margin: 20,
                             right: 0
                         }}
@@ -37,7 +37,7 @@ const Head = (props) => {
                     <NavLink to = {"/login"} style = {{color: "black"}}>
                         <i className = {"gg-profile"} style = {{
                             display: "inline-block",
-                            position: "fixed",
+                            position: "absolute",
                             margin: 20,
                             right: 0
                         }}

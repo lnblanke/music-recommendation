@@ -6,7 +6,6 @@ import Cookies from "universal-cookie"
 const Login = (props) => {
     const {setLogin, setUserInfo, base_url, api_key} = props
     const navigate = useNavigate()
-    const [messageAPI, context] = message.useMessage()
     const cookie = new Cookies()
 
     const onFinish = async (values) => {
@@ -18,7 +17,7 @@ const Login = (props) => {
         }
 
         try {
-            const response = await(fetch(base_url + `/get-user-info?user_name=${values["username"]}`, request))
+            const response = await(fetch(base_url + `/get-user-info?username=${values["username"]}`, request))
             const data = await (response.json())
 
             if (response.ok) {
@@ -32,16 +31,10 @@ const Login = (props) => {
 
                     navigate("/")
                 } else {
-                    messageAPI.open({
-                        type: "error",
-                        content: "Password is incorrect!",
-                    })
+                    message.error("Password is incorrect!")
                 }
             } else {
-                messageAPI.open({
-                    type: "error",
-                    content: data["error_message"],
-                })
+                message.error(data["error_message"])
             }
         } catch (e) {
             console.log("Failed request: ", e)
@@ -52,10 +45,8 @@ const Login = (props) => {
         console.log('Failed:', errorInfo);
     };
 
-
     return (
         <>
-            {context}
             <Form
                 name = "basic"
                 labelCol = {{
