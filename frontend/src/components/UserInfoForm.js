@@ -1,27 +1,30 @@
 import React from 'react';
-import {Input, List, message, Typography} from 'antd';
-
-const { Text } = Typography;
-
+import {Input, List, message} from 'antd';
 const UserInfoForm = (props) => {
     const {base_url, api_key, userInfo, setUserInfo} = props
-    const cols = ["", "Username", "Password", "Email", "Gender", "Bio"]
-    const info = []
+
+    const data = []
 
     if (userInfo != null) {
-        for (let i = 1; i < userInfo.length; i++)
-            info.push([i, userInfo[i]])
+        for (const [key, value] of Object.entries(userInfo)) {
+            if (key !== "user_id") {
+                data.push({
+                    "key": key.charAt(0).toUpperCase() + key.slice(1),
+                    "value": value
+                })
+            }
+        }
     }
 
-    const updateUser = async (index, event) => {
+    const updateUser = async (col, event) => {
         const request = {
             method: "PUT",
             headers: {
                 "x-api-key": api_key
             },
             body: JSON.stringify({
-                "user_id": userInfo[0],
-                [cols[index].toLowerCase()]: event.target.value
+                "user_id": userInfo["user_id"],
+                [col.toLowerCase()]: event.target.value
             })
         }
 
@@ -30,19 +33,13 @@ const UserInfoForm = (props) => {
             const data = await (response.json())
 
             if (response.ok) {
-                message.info(cols[index] + " successfully updated!")
+                message.info(col + " successfully updated!")
 
-                userInfo[index] = event.target.value
-
-                setUserInfo(userInfo)
-
-                for (let i = 1; i < userInfo.length; i++)
-                    info.push([i, userInfo[i]])
+                userInfo[col] = event.target.value
             } else {
                 message.error(data["error_message"])
-
-                setUserInfo(userInfo)
             }
+            setUserInfo(userInfo)
         } catch (e) {
             console.log("Failed request: ", e)
         }
@@ -53,28 +50,28 @@ const UserInfoForm = (props) => {
             <h2> User Info </h2>
             <List
                 itemLayout="horizontal"
-                dataSource={info}
+                dataSource={data}
                 renderItem={(item) => (
                     <List.Item>
                         <List.Item.Meta
-                            title={cols[item[0]]}
+                            title={item.key}
                         />
 
                         {
-                            cols[item[0]] === "Password"?
+                            item.key === "Password"?
                                 <Input.Password
                                     bordered={false}
                                     size="small"
-                                    defaultValue={item[1]}
-                                    onPressEnter={e=>updateUser(item[0], e)}
-                                    style={{width: 200}}
+                                    defaultValue={item.value}
+                                    onPressEnter={e=>updateUser(item.key, e)}
+                                    style={{width: 200, textAlign: "right"}}
                                 /> :
                                 <Input
                                     bordered={false}
                                     size="small"
-                                    defaultValue={item[1]}
-                                    onPressEnter={e=>updateUser(item[0], e)}
-                                    style={{width: 200}}
+                                    defaultValue={item.value}
+                                    onPressEnter={e=>updateUser(item.key, e)}
+                                    style={{minWidth: 200, textAlign: "right"}}
                                 />
                         }
                     </List.Item>

@@ -1,5 +1,0 @@
--f https://download.pytorch.org/whl/torch_stable.html
-torch==2.0.0+cpu
-librosa
-PyYAML
-mysql-connector-python-rf

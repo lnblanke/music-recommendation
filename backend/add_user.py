@@ -36,10 +36,11 @@ def lambda_handler(event, context):
 
         if bio:
             update_cols.append("bio")
-            update_items.append(f"'{bio}'")
+            bio = bio.replace("\\", "\\\\").replace("\"", "\\\"")
+            update_items.append(f"\"{bio}\"")
 
         query(f"insert into users({', '.join(update_cols)}) values ({', '.join(update_items)})")
     except Exception as e:
         error = e
 
-    return get_request_body("PUT", None, error)
+    return get_request_body("POST", None, error)

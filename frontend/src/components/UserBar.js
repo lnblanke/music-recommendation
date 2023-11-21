@@ -57,8 +57,8 @@ const UserBar = (props) => {
 
     return (
         <div>
-            <h1 style={{margin: "40px", fontSize: "30px"}}> Hello {userInfo[1]}! </h1>
-            <Menu mode="vertical" onClick={click} items = {item}/>
+            <h1 style={{margin: "40px", fontSize: "30px"}}> Hello {userInfo["username"]}! </h1>
+            <Menu mode="vertical" onClick={click} items = {item} selectedKeys={[]}/>
         </div>
     )
 }

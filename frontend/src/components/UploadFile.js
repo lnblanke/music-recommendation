@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 const UploadFile = (prop) => {
     const navigate = useNavigate()
     const {setUploadTS, setAnalyzed, api_key} = prop
-    const [ts, setTS] = React.useState()
+    const [ts, setTS] = React.useState(null)
 
     const props = {
         name: 'file',
@@ -41,7 +41,7 @@ const UploadFile = (prop) => {
                 '0%': '#108ee9',
                 '100%': '#87d068',
             },
-            strokeWidth: 3,
+            size: "small",
             format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
         },
     };
