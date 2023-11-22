@@ -5,51 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d1b7d4d-0789-45e0-aa30-3384641537bd" name="Changes" comment="Implement website layout and login/signup features">
-      <change afterPath="$PROJECT_DIR$/backend/add_history.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/delete_history.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/get_history.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/get_preferences.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/get_songs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lambda-pytorch/recommend/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lambda-pytorch/recommend/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lambda-pytorch/recommend/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lambda-pytorch/recommend/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lambda-pytorch/recommend/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/History.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Search.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/add_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/add_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/change_user_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/change_user_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/get_user_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/get_user_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/.aws-sam/build.toml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/.aws-sam/build.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/.numba_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/.numba_config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/scaler.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/scaler.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/app/weights" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/weights" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/template.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/recommend.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/backend/recommend.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/update.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/update.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Head.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Head.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/MusicCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MusicCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/MusicPreferenceWordCloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MusicPreferenceWordCloud.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserInfoForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserInfoForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Analyze.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Analyze.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/User.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +114,8 @@
       <workItem from="1700531021632" duration="19345000" />
       <workItem from="1700598858012" duration="9297000" />
       <workItem from="1700626385036" duration="3590000" />
-      <workItem from="1700672135317" duration="5585000" />
+      <workItem from="1700672135317" duration="6405000" />
+      <workItem from="1700687775006" duration="327000" />
     </task>
     <task id="LOCAL-00001" summary="Implement website layout and login/signup features">
       <option name="closed" value="true" />
