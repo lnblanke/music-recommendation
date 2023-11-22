@@ -1,24 +1,54 @@
 import React from 'react';
-import {Card} from 'antd';
+import {Card, Flex, Button} from 'antd';
+import {CloseOutlined} from "@ant-design/icons";
 
 const {Meta} = Card;
 const MusicCard = (props) => {
-    const {id, song, singer, album} = props
-    return (
-        <Card
-            hoverable
-            style = {{
-                width: "70vw",
-                margin: "20px"
-            }}
-        >
-            <Meta
-                title = {song}
-                description = {<div><span> {singer} </span> <br/> <span> {album} </span></div>}
+    const {addHistory, deleteHistory, track_id, song, singer, album, track_genre, url} = props
 
-                avatar = {<img style = {{height: "70px"}} alt = "sample"
-                               src = "https://images.pexels.com/photos/3944091/pexels-photo-3944091.jpeg"/>}/>
-        </Card>
+    const clickEvent = async () => {
+        addHistory(track_id)
+
+        window.open(
+            `https://open.spotify.com/track/${track_id}`,
+            "_blank"
+        )
+    }
+
+    return (
+        <Flex align = "center">
+            <div onClick = {() => clickEvent()}>
+                <Card
+                    hoverable
+                    style = {{
+                        width: (deleteHistory ? "67vw" : "70vw"),
+                        margin: "20px",
+                        textAlign: "center",
+                        paddingRight: "20vh"
+                    }}
+                >
+                    <Meta
+                        title = {song}
+                        description = {
+                        <div>
+                            <p> Artists: {singer.replaceAll(";", ", ")} </p>
+                            <p> Album: {album} </p>
+                            <p> Genre: {track_genre} </p>
+                        </div>}
+
+                        avatar = {<img style = {{height: "140px", borderRadius: "5%"}} alt = "sample"
+                                       src = {url? url: "https://images.pexels.com/photos/3944091/pexels-photo-3944091.jpeg"}/>}/>
+                </Card>
+            </div>
+            {
+                deleteHistory ?
+                    (<Button
+                        onClick = {() => deleteHistory(track_id)}
+                        icon = {<CloseOutlined/>}
+                        shape = "circle"
+                    />) : (<div/>)
+            }
+        </Flex>
     );
 }
 export default MusicCard;

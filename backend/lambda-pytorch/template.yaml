@@ -6,17 +6,13 @@ Globals:
     Timeout: 500
     MemorySize: 2048
   Api:
-    BinaryMediaTypes:
-    - image/png
-    - image/jpg
-    - image/jpeg
     Cors:
       AllowMethods: "'POST, OPTION'"
       AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
       AllowOrigin: "'*'"
 
 Resources:
-  InferenceFunction:
+  Analyze:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       PackageType: Image
@@ -30,7 +26,23 @@ Resources:
             Method: POST
     Metadata:
       Dockerfile: Dockerfile
-      DockerContext: ./app
+      DockerContext: ./analyze
+      DockerTag: python3.11-v1
+  Recommend:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      PackageType: Image
+      Architectures:
+      - x86_64
+      Events:
+        Inference:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /recommend
+            Method: POST
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./recommend
       DockerTag: python3.11-v1
 
   ApplicationResourceGroup:
@@ -50,12 +62,21 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  InferenceApi:
-    Description: API Gateway endpoint URL for dev stage for Inference function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/dev/predict/"
-  InferenceFunction:
-    Description: Inference Lambda Function ARN
-    Value: !GetAtt InferenceFunction.Arn
-  InferenceFunctionIamRole:
-    Description: Implicit IAM Role created for Inference function
-    Value: !GetAtt InferenceFunctionRole.Arn
+  AnalyzeApi:
+    Description: API Gateway endpoint URL for dev stage for Analyze function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/dev/analyze/"
+  Analyze:
+    Description: Analyze Lambda Function ARN
+    Value: !GetAtt Analyze.Arn
+  AnalyzeIamRole:
+    Description: Implicit IAM Role created for analyze function
+    Value: !GetAtt AnalyzeRole.Arn
+  RecommendApi:
+    Description: API Gateway endpoint URL for dev stage for Recommend function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/dev/recommend/"
+  Recommend:
+    Description: Recommend Lambda Function ARN
+    Value: !GetAtt Recommend.Arn
+  RecommendIamRole:
+    Description: Implicit IAM Role created for recommend function
+    Value: !GetAtt RecommendRole.Arn

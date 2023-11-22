@@ -13,6 +13,8 @@ import Analyze from "./pages/Analyze";
 import SearchBar from "./components/SearchBar";
 import UploadFile from "./components/UploadFile";
 import NotFound from "./pages/404";
+import History from "./pages/History"
+import Search from "./pages/Search";
 
 const {Content, Sider} = Layout;
 const base_url = "https://d7mnlmmxka.execute-api.us-east-2.amazonaws.com/dev"
@@ -26,14 +28,16 @@ const App = () => {
 
     const [login, setLogin] = React.useState(false)
     const [collapse, setCollapse] = React.useState(true)
-    const [userInfo, setUserInfo] = React.useState()
+    const [userInfo, setUserInfo] = React.useState(null)
     const [loadCookie, setLoadCookie] = React.useState(false)
     const [uploadTS, setUploadTS] = React.useState(null)
     const [analyzed, setAnalyzed] = React.useState(false)
+    const [prompt, setPrompt] = React.useState(null)
+    const [searched, setSearched] = React.useState(false)
     const cookie = new Cookies()
 
     useEffect(() => {
-        if (cookie.get("user") === undefined || loadCookie) return;
+        if (loadCookie) return;
 
         const getUser = async (username) => {
             const request = {
@@ -48,8 +52,9 @@ const App = () => {
                 const data = await (response.json())
 
                 if (response.ok) {
-                    setLogin(true);
-                    setUserInfo(data["data"][0])
+                    await setLogin(true);
+                    await setUserInfo(data["data"])
+                    await setLoadCookie(true)
                 } else {
                     console.log("Error", data["error-message"])
                 }
@@ -58,19 +63,9 @@ const App = () => {
             }
         }
 
-        getUser(cookie.get("user")).catch(console.error)
-        setLoadCookie(true)
-    })
-
-    // Sample Items for MusicCard
-    const items = []
-    for (let i = 0; i < 10; i++)
-        items.push({
-            id: i,
-            song: "Sample song " + i,
-            singer: "Sample singer " + i,
-            album: "Sample album " + i
-        })
+        if (cookie.get("user") !== undefined) getUser(cookie.get("user")).catch(console.error)
+        else setLoadCookie(true)
+    }, [loadCookie, cookie])
 
     return (
         <ConfigProvider
@@ -93,7 +88,7 @@ const App = () => {
                     width = {300}
                     theme = {"light"}
                 >
-                    <SearchBar/>
+                    <SearchBar setPrompt = {setPrompt} setSearched = {setSearched}/>
 
                     <p
                         style = {{
@@ -130,23 +125,67 @@ const App = () => {
                             }}
                         >
                             <Routes>
-                                <Route path = "/home" element = {<Home items = {items}/>}/>
-                                <Route path = "/login" element = {<Login setLogin = {setLogin}
-                                                                         setUserInfo = {setUserInfo}
-                                                                         base_url = {base_url}
-                                                                         api_key = {api_key}/>}/>
-                                <Route path = "/signup" element = {<Signup base_url = {base_url}
-                                                                           api_key = {api_key}/>}/>
-                                <Route path = "/user" element = {<User base_url = {base_url}
-                                                                       api_key = {api_key}
-                                                                       userInfo = {userInfo}
-                                                                       setUserInfo = {setUserInfo}/>}/>
-                                <Route path = "/analyze" element = {<Analyze uploadTS = {uploadTS}
-                                                                             setUploadTS = {setUploadTS}
-                                                                             analyzed = {analyzed}
-                                                                             setAnalyzed = {setAnalyzed}
-                                                                             ml_url = {ml_url}
-                                                                             api_key = {api_key}/>}/>
+                                <Route path = "/home" element = {
+                                    <Home
+                                        getUserInfo = {React.useCallback(() => userInfo, [userInfo])}
+                                        loadCookie = {loadCookie}
+                                        base_url = {base_url}
+                                        ml_url = {ml_url}
+                                        api_key = {api_key}
+                                    />}
+                                />
+                                <Route path = "/login" element = {
+                                    <Login
+                                        setLogin = {setLogin}
+                                        setUserInfo = {setUserInfo}
+                                        base_url = {base_url}
+                                        api_key = {api_key}
+                                    />}
+                                />
+                                <Route path = "/signup" element = {
+                                    <Signup
+                                        base_url = {base_url}
+                                        api_key = {api_key}
+                                    />}
+                                />
+                                <Route path = "/user" element = {
+                                    <User
+                                        base_url = {base_url}
+                                        api_key = {api_key}
+                                        userInfo = {userInfo}
+                                        setUserInfo = {setUserInfo}
+                                    />}
+                                />
+                                <Route path = "/history" element = {
+                                    <History
+                                        userInfo = {userInfo}
+                                        base_url = {base_url}
+                                        api_key = {api_key}
+                                    />}
+                                />
+                                <Route path = "/analyze" element = {
+                                    <Analyze
+                                        getUserInfo = {React.useCallback(() => userInfo, [userInfo])}
+                                        uploadTS = {uploadTS}
+                                        setUploadTS = {setUploadTS}
+                                        analyzed = {analyzed}
+                                        setAnalyzed = {setAnalyzed}
+                                        ml_url = {ml_url}
+                                        base_url = {base_url}
+                                        api_key = {api_key}
+                                    />}
+                                />
+                                <Route path = "/search" element = {
+                                    <Search
+                                        prompt = {prompt}
+                                        setPrompt = {setPrompt}
+                                        searched = {searched}
+                                        setSearched = {setSearched}
+                                        userInfo = {userInfo}
+                                        base_url = {base_url}
+                                        api_key = {api_key}
+                                    />}
+                               />
                                 <Route path = "/404" element = {<NotFound/>}/>
                                 <Route path = "/" element = {<Navigate to = "/home"/>}/>
                                 <Route path = "*" element = {<Navigate to = "/404"/>}></Route>
@@ -168,6 +207,7 @@ const App = () => {
                                 right: 0,
                                 top: 0,
                                 bottom: 0,
+                                zIndex: 4
                             }}
                             width = {300}
                             theme = {"light"}
@@ -175,7 +215,8 @@ const App = () => {
                             <UserBar userInfo = {userInfo}
                                      setLogin = {setLogin}
                                      setUserInfo = {setUserInfo}
-                                     setCollapse = {setCollapse}/>
+                                     setCollapse = {setCollapse}
+                            />
                         </Sider>) : (<div/>)
                 }
             </Layout>

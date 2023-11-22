@@ -1,32 +1,14 @@
-import React from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {LoadingOutlined} from '@ant-design/icons';
 import {Empty, message, Spin} from 'antd';
 import MusicCard from "../components/MusicCard";
 
-const genre = [
-    'blues',
-    'classical',
-    'country',
-    'disco',
-    'hiphop',
-    'jazz',
-    'metal',
-    'pop',
-    'reggae',
-    'rock',
-]
-
 const Analyze = (props) => {
-    const {uploadTS, setUploadTS, analyzed, setAnalyzed, ml_url, api_key} = props
+    const {getUserInfo, uploadTS, setUploadTS, analyzed, setAnalyzed, ml_url, base_url, api_key} = props
     const [content, setContent] = React.useState(null)
-    const [related, setRelated] = React.useState([{
-        id: 0,
-        song: "Sample song 0",
-        singer: "Sample singer 0",
-        album: "Sample album 0"
-    }])
+    const [related, setRelated] = React.useState(null)
 
-    const remove_file = async() => {
+    const remove_file = async () => {
         const request = {
             method: "DELETE",
             headers: {
@@ -41,10 +23,9 @@ const Analyze = (props) => {
         }
     }
 
-    console.log(analyzed, uploadTS, content)
-
     const analyze = async () => {
         if (uploadTS === null || analyzed) return
+
         const request = {
             method: "POST",
             headers: {
@@ -60,29 +41,85 @@ const Analyze = (props) => {
             const data = await (response.json())
 
             if (response.ok) {
+                await setAnalyzed(true)
                 await remove_file()
 
-                setContent(data["outputs"])
+                return data
             } else {
-                message.error("Internal error. The service is unable the analyze the file")
-                console.log(data)
-                await remove_file()
-                setUploadTS(null)
-                setContent(null)
+                message.error("Internal error. We are unable to analyze the audio file")
             }
         } catch (e) {
             message.error("API call timeout. Please try again")
             console.log("Failed request: ", e)
-            await remove_file()
-            setUploadTS(null)
-            setContent(null)
         }
-        setAnalyzed(true)
+
+        await remove_file()
+        await setUploadTS(null)
+        setContent(null)
+        setRelated(null)
     }
 
-    analyze()
+    useEffect(() => {
+        analyze().then(async data => {
+            if (data === undefined) return;
 
-    return (
+            await setContent(data["genre"].toUpperCase())
+
+            const request = {
+                method: "GET",
+                headers: {
+                    "x-api-key": api_key
+                }
+            }
+
+            try {
+                const response = await (fetch(base_url + `/get-songs?track_id=${data["similar"]}`, request))
+                const songs = await (response.json())
+
+                if (response.ok) {
+                    await setRelated(songs["data"])
+                } else {
+                    console.log("Error", data["error-message"])
+                    setRelated(null)
+                }
+            } catch (e) {
+                console.log("Failed request: ", e)
+                setRelated(null)
+            }
+        })
+    });
+
+    const addHistory = async (track_id) => {
+        if (getUserInfo() == null) return;
+
+        const user_id = getUserInfo()["user_id"]
+
+        const request = {
+            method: "POST",
+            headers: {
+                "x-api-key": api_key
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                track_id: track_id,
+                ts: new Date().getTime()
+            })
+        }
+
+        try {
+            const response = await (fetch(base_url + `/add-history`, request))
+            const data = await (response.json())
+
+            if (! response.ok) {
+                message.error("Add history failed!")
+                console.log("Error", data["error-message"])
+            }
+        } catch (e) {
+            console.log("Failed request: ", e)
+        }
+    }
+
+    return useMemo(() => (
         uploadTS === null ? (<Empty/>) :
             (! analyzed? (
                     <div style = {{textAlign: "center", margin: "50px"}}>
@@ -100,12 +137,13 @@ const Analyze = (props) => {
                 ) : (
                     <div style = {{textAlign: "center"}}>
                         <h2 style = {{padding: "20px"}}> The genre of the song </h2>
-                        <h1 style = {{padding: "20px"}}> {content === null? content: genre[content].toUpperCase()} </h1>
-                        <h2 style={{textAlign: "left", padding: "20px"}}> Similar songs </h2>
-                        {related.map(prop => <MusicCard key={"MusicCard" + prop["id"]} {...prop}/>)}
+                        <h1 style = {{padding: "20px"}}> {content} </h1>
+                        <h2 style = {{textAlign: "left", padding: "20px"}}> Similar songs </h2>
+                        {related === null ? related : related.map(prop => <MusicCard
+                            key = {"MusicCard" + prop["id"]} {...prop} addHistory = {addHistory}/>)}
                     </div>
                 )
             )
-    );
+    ), [uploadTS, analyzed, content, related, addHistory]);
 }
 export default Analyze;

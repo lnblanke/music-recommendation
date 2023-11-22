@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d1b7d4d-0789-45e0-aa30-3384641537bd" name="Changes" comment="Implement website layout and login/signup features">
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/404.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Analyze.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/datatest.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Head.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Head.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/MusicCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MusicCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/MusicPreferenceWordCloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MusicPreferenceWordCloud.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Nav.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/UploadFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/UserBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/UserInfoForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserInfoForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Signup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/User.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +106,16 @@
       <workItem from="1699674019498" duration="594000" />
       <workItem from="1699684315724" duration="8000" />
       <workItem from="1699743428751" duration="9229000" />
+      <workItem from="1699816348076" duration="38000" />
+      <workItem from="1699833156940" duration="605000" />
+      <workItem from="1699911829454" duration="711000" />
+      <workItem from="1699975009251" duration="287000" />
+      <workItem from="1700262335177" duration="589000" />
+      <workItem from="1700531021632" duration="19345000" />
+      <workItem from="1700598858012" duration="9297000" />
+      <workItem from="1700626385036" duration="3590000" />
+      <workItem from="1700672135317" duration="6405000" />
+      <workItem from="1700687775006" duration="327000" />
     </task>
     <task id="LOCAL-00001" summary="Implement website layout and login/signup features">
       <option name="closed" value="true" />

@@ -10,13 +10,22 @@ def lambda_handler(event, context):
     try:
         req = event["queryStringParameters"]
         
-        user_name = req.get("user_name")
+        user_name = req.get("username")
 
         assert user_name is not None, "Username is empty"
         assert check_invalid_character(user_name), "Username is invalid"
         
-        result = query(f"select * from users where user_name = '{user_name}'")
-        assert len(result) > 0, "User with username is not found"
+        user = query(f"select * from users where username = '{user_name}'")
+        assert len(user) > 0, "User with username is not found"
+
+        result = {
+            "user_id": user[0][0],
+            "username": user[0][1],
+            "password": user[0][2],
+            "email": user[0][3],
+            "gender": user[0][4],
+            "bio": user[0][5]
+        }
     except Exception as e:
         error = e
 

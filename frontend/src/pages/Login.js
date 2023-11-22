@@ -21,9 +21,9 @@ const Login = (props) => {
             const data = await (response.json())
 
             if (response.ok) {
-                if (data["data"][0][2] === values["password"]) {
+                if (data["data"]["password"] === values["password"]) {
                     setLogin(true);
-                    setUserInfo(data["data"][0])
+                    setUserInfo(data["data"])
 
                     if (values["remember"]) {
                         cookie.set("user", values["username"])

@@ -50,7 +50,7 @@ def lambda_handler(event, context):
             assert gender != "", "Gender is empty"
             update_cols.append(f"gender = '{gender}'")
         if bio:
-            bio = bio.replace("\"", "'")
+            bio = bio.replace("\\", "\\\\").replace("\"", "\\\"")
             update_cols.append(f"bio = \"{bio}\"")
 
         query(f"update users set {', '.join(update_cols)} where user_id = {user_id}")

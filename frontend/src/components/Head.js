@@ -16,7 +16,10 @@ const Head = (props) => {
                 padding: 5,
                 background: colorBgContainer,
                 textAlign: "center",
-                fontSize: "50px"
+                fontSize: "50px",
+                position: "sticky",
+                top: "0",
+                zIndex: 2
             }}
         >
             <NavLink to = {"/home"} style = {{color: "black"}}>
