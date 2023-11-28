@@ -36,7 +36,7 @@ const MusicCard = (props) => {
                             <p> Genre: {track_genre} </p>
                         </div>}
 
-                        avatar = {<img style = {{height: "140px", borderRadius: "5%"}} alt = "sample"
+                        avatar = {<img style = {{height: "140px", width: "140px", borderRadius: "5%"}} alt = "sample"
                                        src = {url? url: "https://images.pexels.com/photos/3944091/pexels-photo-3944091.jpeg"}/>}/>
                 </Card>
             </div>

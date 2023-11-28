@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import React from 'react';
 
 const User = (props) => {
-    const {base_url, api_key, userInfo, setUserInfo} = props;
+    const {base_url, api_key, userInfo, setUserInfo, setGenre} = props
     const [preferences, setPreferences] = React.useState(null)
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const User = (props) => {
             try {
                 const response = await (fetch(base_url + `/get-preferences?user_id=${userInfo["user_id"]}`, request))
                 const data = await response.json()
-                
+
                 if (response.ok) {
                     setPreferences(data["data"])
                 } else {
@@ -33,14 +33,14 @@ const User = (props) => {
         }
 
         getPreferences().catch(console.error)
-    });
+    }, [userInfo, base_url, api_key]);
 
-    return (
+    return React.useMemo(() => (
         <div>
             <UserInfoForm base_url = {base_url} api_key = {api_key} userInfo = {userInfo} setUserInfo = {setUserInfo}/>
-            <MusicPreferenceWordCloud preferences = {preferences}/>
+            <MusicPreferenceWordCloud preferences = {preferences} setGenre = {setGenre}/>
         </div>
-    )
+    ), [base_url, api_key, userInfo, setUserInfo, preferences, setGenre])
 }
 
 export default User;

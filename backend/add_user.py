@@ -25,11 +25,11 @@ def lambda_handler(event, context):
         assert check_invalid_character(password, True), "Password contains invalid character"
         assert check_invalid_character(email, True), "Email contains invalid character"
         
-        user = query(f"select username from users where username = '{username}'")
-        assert len(user) == 0, "User with username already exists"
-        
-        email = query(f"select email from users where email = '{email}'")
-        assert len(email) == 0, "User with email already exists"
+        user_check = query(f"select username from users where username = '{username}'")
+        assert len(user_check) == 0, "User with username already exists"
+
+        email_check = query(f"select email from users where email = '{email}'")
+        assert len(email_check) == 0, "User with email already exists"
 
         update_cols = ["password", "username", "gender", "email"]
         update_items = [f"'{password}'", f"'{username}'", f"'{gender}'", f"'{email}'"]

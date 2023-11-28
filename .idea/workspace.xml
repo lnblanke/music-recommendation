@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d1b7d4d-0789-45e0-aa30-3384641537bd" name="Changes" comment="Implement website layout and login/signup features">
+      <change afterPath="$PROJECT_DIR$/backend/get_genre.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/get_songs_by_genre" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/BrowseGenre.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/add_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/add_user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/change_user_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/change_user_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/MusicCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MusicCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/MusicPreferenceWordCloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MusicPreferenceWordCloud.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/History.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/User.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,26 +46,30 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2Viv9IR7D8Ibnt73OTWw3st12RZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/davidfu/Desktop/Projects/CS 222/group-project-team21&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/davidfu/Desktop/Projects/CS 222/group-project-team21",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/src/pages" />
@@ -116,6 +137,11 @@
       <workItem from="1700626385036" duration="3590000" />
       <workItem from="1700672135317" duration="6405000" />
       <workItem from="1700687775006" duration="327000" />
+      <workItem from="1700790425884" duration="589000" />
+      <workItem from="1700791172439" duration="729000" />
+      <workItem from="1700948831437" duration="29000" />
+      <workItem from="1701111976813" duration="1002000" />
+      <workItem from="1701130952706" duration="7881000" />
     </task>
     <task id="LOCAL-00001" summary="Implement website layout and login/signup features">
       <option name="closed" value="true" />
@@ -147,6 +173,17 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="RECENT_FILTERS">
       <map>
@@ -174,7 +211,19 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Implement website layout and login/signup features" />
     <option name="LAST_COMMIT_MESSAGE" value="Implement website layout and login/signup features" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/frontend/src/components/UserBar.js</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

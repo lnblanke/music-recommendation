@@ -1,0 +1,26 @@
+# Get random songs with genre from database
+# GET request
+
+import json
+from utils import query, get_request_body
+
+def lambda_handler(event, context):
+    result, error = None, None
+
+    try:
+        req = event["queryStringParameters"]
+        
+        genre = req.get("genre")
+
+        assert genre is not None, "Genre is empty"
+        
+        genre_check = query(f"select track_genre from songs where track_genre = '{genre}'")
+        assert len(genre_check) > 0, "Genre is not found"
+
+        result = query(f"select track_id from songs where track_genre = '{genre}' order by rand() limit 10")
+
+        result = [id for [id] in result]
+    except Exception as e:
+        error = e
+
+    return get_request_body("GET", result, error)

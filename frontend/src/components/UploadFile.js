@@ -1,7 +1,8 @@
 import React from 'react';
 import {UploadOutlined} from '@ant-design/icons';
-import {Button, message, Upload} from 'antd';
+import {Button, message, Typography, Upload} from 'antd';
 import {useNavigate} from "react-router-dom";
+const {Title} = Typography
 
 const UploadFile = (prop) => {
     const navigate = useNavigate()
@@ -47,17 +48,20 @@ const UploadFile = (prop) => {
     };
 
     return (
-        <Upload {...props}>
-            <Button
-                icon = {<UploadOutlined/>}
-                size = "middle"
-                style = {{
-                    marginLeft: 20,
-                    marginRight: 20,
-                    width: 260
-                }}
-            >Click to Upload</Button>
-        </Upload>
+        <>
+            <Title level={5} style={{paddingLeft: "20px"}}> Upload a song to analyze genre </Title>
+            <Upload {...props}>
+                <Button
+                    icon = {<UploadOutlined/>}
+                    size = "middle"
+                    style = {{
+                        marginLeft: 20,
+                        marginRight: 20,
+                        width: 260
+                    }}
+                >Click to Upload</Button>
+            </Upload>
+        </>
     );
 }
 export default UploadFile;

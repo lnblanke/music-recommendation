@@ -1,5 +1,5 @@
 import React from 'react';
-import {CloseOutlined, HistoryOutlined, PoweroffOutlined, UserOutlined} from "@ant-design/icons";
+import {HistoryOutlined, PoweroffOutlined, UserOutlined} from "@ant-design/icons";
 import {Menu} from "antd";
 import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -23,12 +23,6 @@ const UserBar = (props) => {
             key: 2,
             icon: React.createElement(PoweroffOutlined),
             label: "Logout"
-        },
-        {
-            key: 3,
-            icon: React.createElement(CloseOutlined),
-            label: "Close",
-            style: {bottom: 0}
         }
     ]
 
@@ -48,9 +42,6 @@ const UserBar = (props) => {
                 setUserInfo(null)
                 cookie.remove("user")
                 navigate("/")
-                break
-            case "3":
-                setCollapse(true)
                 break
         }
     }
