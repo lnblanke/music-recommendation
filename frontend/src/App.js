@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ConfigProvider, Layout, theme} from 'antd';
+import {ConfigProvider, Drawer, Layout, theme} from 'antd';
 import Login from "./pages/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Signup from "./pages/Signup";
@@ -15,6 +15,7 @@ import UploadFile from "./components/UploadFile";
 import NotFound from "./pages/404";
 import History from "./pages/History"
 import Search from "./pages/Search";
+import BrowseGenre from "./components/BrowseGenre";
 
 const {Content, Sider} = Layout;
 const base_url = "https://d7mnlmmxka.execute-api.us-east-2.amazonaws.com/dev"
@@ -34,7 +35,10 @@ const App = () => {
     const [analyzed, setAnalyzed] = React.useState(false)
     const [prompt, setPrompt] = React.useState(null)
     const [searched, setSearched] = React.useState(false)
+    const [genre, setGenre] = React.useState(null)
     const cookie = new Cookies()
+
+    console.log("Render")
 
     useEffect(() => {
         if (loadCookie) return;
@@ -89,17 +93,18 @@ const App = () => {
                     theme = {"light"}
                 >
                     <SearchBar setPrompt = {setPrompt} setSearched = {setSearched}/>
-
-                    <p
-                        style = {{
-                            paddingLeft: 20,
-                            paddingRight: 20
-                        }}
-                    > Upload a song</p>
-                    <UploadFile uploadTS = {uploadTS}
-                                setUploadTS = {setUploadTS}
-                                setAnalyzed = {setAnalyzed}
-                                api_key = {api_key}/>
+                    <UploadFile
+                        uploadTS = {uploadTS}
+                        setUploadTS = {setUploadTS}
+                        setAnalyzed = {setAnalyzed}
+                        api_key = {api_key}
+                    />
+                    <BrowseGenre
+                        genre = {genre}
+                        setGenre = {setGenre}
+                        base_url = {base_url}
+                        api_key = {api_key}
+                    />
                 </Sider>
                 <Layout
                     className = "site-layout"
@@ -129,6 +134,7 @@ const App = () => {
                                     <Home
                                         getUserInfo = {React.useCallback(() => userInfo, [userInfo])}
                                         loadCookie = {loadCookie}
+                                        genre = {genre}
                                         base_url = {base_url}
                                         ml_url = {ml_url}
                                         api_key = {api_key}
@@ -154,6 +160,7 @@ const App = () => {
                                         api_key = {api_key}
                                         userInfo = {userInfo}
                                         setUserInfo = {setUserInfo}
+                                        setGenre = {setGenre}
                                     />}
                                 />
                                 <Route path = "/history" element = {
@@ -196,28 +203,16 @@ const App = () => {
 
                 {
                     login ?
-                        (<Sider
-                            collapsible
-                            collapsed = {collapse}
-                            collapsedWidth = {0}
-                            style = {{
-                                overflow: 'auto',
-                                height: '100vh',
-                                position: 'fixed',
-                                right: 0,
-                                top: 0,
-                                bottom: 0,
-                                zIndex: 4
-                            }}
-                            width = {300}
-                            theme = {"light"}
+                        (<Drawer
+                            open = {! collapse}
+                            onClose = {() => setCollapse(true)}
                         >
                             <UserBar userInfo = {userInfo}
                                      setLogin = {setLogin}
                                      setUserInfo = {setUserInfo}
                                      setCollapse = {setCollapse}
                             />
-                        </Sider>) : (<div/>)
+                        </Drawer>) : (<div/>)
                 }
             </Layout>
         </ConfigProvider>

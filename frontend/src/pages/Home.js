@@ -2,27 +2,51 @@ import MusicCard from "../components/MusicCard";
 import React, {useEffect} from "react";
 import {message, Skeleton} from "antd";
 
-const Home = ({getUserInfo, loadCookie, base_url, ml_url, api_key}) => {
+const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
     const [items, setItems] = React.useState(null)
 
     useEffect(() => {
         const get_recommend = async () => {
-            if (items != null || ! loadCookie) return;
+            if (! loadCookie) return;
 
-            const userInfo = getUserInfo()
-
-            let request = {
-                method: "GET",
-                headers: {
-                    "x-api-key": api_key
-                }
-            }
+            setItems(null)
 
             try {
-                let data = []
+                let ids = []
+                if (genre == null) {
+                    let data = []
+                    const userInfo = getUserInfo()
 
-                if (userInfo != null) {
-                    let response = await (fetch(base_url + `/get-history?user_id=${userInfo["user_id"]}`, request))
+                    let request = {
+                        method: "GET",
+                        headers: {
+                            "x-api-key": api_key
+                        }
+                    }
+
+                    if (userInfo != null) {
+                        let response = await (fetch(base_url + `/get-history?user_id=${userInfo["user_id"]}`, request))
+                        data = await (response.json())
+
+                        if (!response.ok) {
+                            console.log("Error", data["error-message"])
+                            return;
+                        }
+
+                        data = await data["data"].map(item => item["track_id"])
+                    }
+
+                    request = {
+                        method: "POST",
+                        headers: {
+                            "x-api-key": api_key
+                        },
+                        body: JSON.stringify({
+                            "history": data
+                        })
+                    }
+
+                    let response = await (fetch(ml_url + `/recommend`, request))
                     data = await (response.json())
 
                     if (!response.ok) {
@@ -30,41 +54,35 @@ const Home = ({getUserInfo, loadCookie, base_url, ml_url, api_key}) => {
                         return;
                     }
 
-                    data = await data["data"].map(item => item["track_id"])
+                    ids = data["recommend"]
+                } else {
+                    const request = {
+                        method: "GET",
+                        headers: {
+                            "x-api-key": api_key
+                        }
+                    }
+
+                    const response = await (fetch(base_url + `/get-songs-by-genre?genre=${genre}`, request))
+                    const data = await (response.json())
+
+                    ids = data["data"]
                 }
 
-                request = {
-                    method: "POST",
-                    headers: {
-                        "x-api-key": api_key
-                    },
-                    body: JSON.stringify({
-                        "history": data
-                    })
-                }
-
-                let response = await (fetch(ml_url + `/recommend`, request))
-                data = await (response.json())
-
-                if (!response.ok) {
-                    console.log("Error", data["error-message"])
-                    return;
-                }
-
-                request = {
+                const request = {
                     method: "GET",
                     headers: {
                         "x-api-key": api_key
                     }
                 }
 
-                response = await (fetch(base_url + `/get-songs?track_id=${data["recommend"]}`, request))
+                const response = await (fetch(base_url + `/get-songs?track_id=${ids}`, request))
                 const songs = await (response.json())
 
                 if (response.ok) {
                     setItems(songs["data"])
                 } else {
-                    console.log("Error", data["error-message"])
+                    console.log("Error", songs["error-message"])
                 }
             } catch (e) {
                 console.log("Failed request: ", e)
@@ -72,7 +90,7 @@ const Home = ({getUserInfo, loadCookie, base_url, ml_url, api_key}) => {
         }
 
         get_recommend().catch(console.error)
-    });
+    }, [genre, base_url, api_key, getUserInfo, loadCookie, ml_url]);
 
     const addHistory = async (track_id) => {
         if (getUserInfo() == null) return;

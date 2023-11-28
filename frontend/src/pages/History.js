@@ -1,10 +1,10 @@
 import MusicCard from "../components/MusicCard";
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect} from "react";
 import {message, Skeleton, Empty} from "antd";
-import user from "./User";
 
 const History = ({userInfo, base_url, api_key}) => {
     const [items, setItems] = React.useState(null)
+
     const get_history = async (force = false) => {
         if ((! force && items != null )|| userInfo == null) return;
 

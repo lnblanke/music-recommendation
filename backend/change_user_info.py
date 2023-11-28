@@ -18,32 +18,32 @@ def lambda_handler(event, context):
     
         assert user_id is not None, "user_id is empty"
         
-        user = query(f"select user_id from users where user_id='{user_id}'")
-        
-        assert len(user) > 0, "User with user_id is not found"
+        user_check = query(f"select user_id from users where user_id='{user_id}'")
+
+        assert len(user_check) > 0, "User with user_id is not found"
 
         update_cols = []
 
         if password:
             assert password != "", "Password is empty"
             assert check_invalid_character(password, True), "Password contains invalid character"
-        
+
             update_cols.append(f"password = '{password}'")
         if username:
             assert username != "", "Username is empty"
             assert check_invalid_character(username), "Username contains invalid character"
-            
-            user = query(f"select user_name from users where user_name = '{username}' and user_id <> {user_id}")
-            assert len(user) == 0, "User with username already exists"
-            
+
+            user_check = query(f"select user_name from users where user_name = '{username}' and user_id <> {user_id}")
+            assert len(user_check) == 0, "User with username already exists"
+
             update_cols.append(f"user_name = '{username}'")
         if email:
             assert email != "", "Email is empty"
             assert '@' in email, "Email is invalid"
             assert check_invalid_character(email, True), "Email contains invalid character"
-            
-            email = query(f"select email from users where email = '{email}' and user_id <> {user_id}")
-            assert len(email) == 0, "User with email already exists"
+
+            email_check = query(f"select email from users where email = '{email}' and user_id <> {user_id}")
+            assert len(email_check) == 0, "User with email already exists"
         
             update_cols.append(f"email = '{email}'")
         if gender:
