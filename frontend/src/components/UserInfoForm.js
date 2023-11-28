@@ -1,27 +1,23 @@
 import React, {useState} from 'react';
-import {Input, List, message, Modal, Typography} from 'antd';
+import {Form, Input, List, message, Modal, Select, Typography} from 'antd';
 import {EditOutlined} from "@ant-design/icons";
+import {useForm} from "antd/es/form/Form";
 
 const {Text} = Typography
+const {Option} = Select
 
 const UserInfoForm = (props) => {
     const {base_url, api_key, userInfo, setUserInfo} = props
     const [openModel, setOpenModal] = useState(false)
     const [updateItem, setUpdateItem] = useState({})
+    const [form] = useForm()
     const show_data = []
-    const edit_data = []
 
     if (userInfo != null) {
         for (const [key, value] of Object.entries(userInfo)) {
             if (key !== "password") {
                 show_data.push({
                     "key": key.charAt(0).toUpperCase() + key.slice(1).replace("_", " "),
-                    "value": value
-                })
-            }
-            if (key !== "user_id") {
-                edit_data.push({
-                    "key": key.charAt(0).toUpperCase() + key.slice(1),
                     "value": value
                 })
             }
@@ -72,14 +68,7 @@ const UserInfoForm = (props) => {
         setOpenModal(false)
         setUpdateItem({})
 
-        for (const [key, value] of Object.entries(userInfo)) {
-            if (key !== "user_id") {
-                edit_data.push({
-                    "key": key.charAt(0).toUpperCase() + key.slice(1),
-                    "value": value
-                })
-            }
-        }
+        form.resetFields()
     }
 
     return (
@@ -101,38 +90,143 @@ const UserInfoForm = (props) => {
                     </List.Item>
                 )}
             />
-            <Modal title = "Edit info" open = {openModel} onOk = {handleOk} onCancel = {handleCancel}>
-                <List
-                    itemLayout = "horizontal"
-                    dataSource = {edit_data}
-                    renderItem = {(item) =>
-                        (
-                            <List.Item>
-                                <List.Item.Meta
-                                    title = {item.key}
-                                />
-                                    {
-                                        item.key !== "Password"?
-                                        <Input
-                                            bordered = {false}
-                                            size = "small"
-                                            defaultValue = {item.value}
-                                            style = {{maxWidth: "300px"}}
-                                            onChange = {e => setUpdateItem(items => ({...items, [item.key.toLowerCase()]: e.target.value}))}
-                                        /> :
-                                        <Input.Password
-                                            bordered = {false}
-                                            size = "small"
-                                            defaultValue = {item.value}
-                                            style = {{maxWidth: "300px"}}
-                                            onChange = {e => setUpdateItem(items => ({...items, [item.key.toLowerCase()]: e.target.value}))}
-                                        />
-                                    }
-                            </List.Item>
-                        )
-                    }
-                />
-            </Modal>
+            {
+                userInfo == null? <div/> :
+                <Modal title = "Edit info" open = {openModel} onOk = {handleOk} onCancel = {handleCancel}>
+                    <Form
+                        form = {form}
+                        labelCol = {{
+                            xs: {
+                                span: 24,
+                            },
+                            sm: {
+                                span: 8,
+                            }
+                        }}
+                        wrapperCol = {{
+                            xs: {
+                                span: 24,
+                            },
+                            sm: {
+                                span: 16,
+                            }
+                        }}
+                        onValuesChange={e => {
+                            for (const [key, value] of Object.entries(e)) {
+                                setUpdateItem(item => ({...item, [key]: value}))
+                            }
+                        }}
+                    >
+                        <Form.Item
+                            name = "username"
+                            label = "Username"
+                            rules = {[
+                                {
+                                    required: true,
+                                    message: 'Please input your username!',
+                                    whitespace: true,
+                                },
+                                {
+                                    max: 100,
+                                    message: "The username is too long!"
+                                }
+                            ]}
+                            initialValue = {userInfo["username"]}
+                        >
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item
+                            name = "email"
+                            label = "E-mail"
+                            rules = {[
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please input your E-mail!',
+                                },
+                            ]}
+                            initialValue = {userInfo["email"]}
+                        >
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item
+                            name = "password"
+                            label = "Password"
+                            rules = {[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                                {
+                                    min: 8,
+                                    message: "The password is too short"
+                                },
+                                {
+                                    max: 100,
+                                    message: "The password is too long"
+                                }
+                            ]}
+                            hasFeedback
+                        >
+                            <Input.Password/>
+                        </Form.Item>
+
+                        <Form.Item
+                            name = "confirm"
+                            label = "Confirm Password"
+                            dependencies = {['password']}
+                            hasFeedback
+                            rules = {[
+                                {
+                                    required: true,
+                                    message: 'Please confirm your password!',
+                                },
+                                ({getFieldValue}) => ({
+                                    validator(_, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject(new Error('The new password that you entered do not match!'));
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
+
+                        <Form.Item
+                            name = "gender"
+                            label = "Gender"
+                            rules = {[
+                                {
+                                    required: true,
+                                    message: 'Please select gender!',
+                                },
+                            ]}
+                            initialValue = {userInfo["gender"]}
+                        >
+                            <Select placeholder = "select your gender">
+                                <Option value = "male">Male</Option>
+                                <Option value = "female">Female</Option>
+                                <Option value = "other">Other</Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                            name = "bio"
+                            label = "Bio"
+                            initialValue = {userInfo["bio"]}
+                        >
+                            <Input.TextArea showCount maxLength = {100}/>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            }
         </div>
     );
 };
