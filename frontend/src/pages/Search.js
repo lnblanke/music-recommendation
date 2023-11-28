@@ -26,10 +26,9 @@ const Search = (props) => {
                 await setItem(data["data"])
                 return
             } else {
-                console.log("Error", data["error-message"])
+                message.error(`Error: ${data["error-message"]}`)
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
 
         await setPrompt(false)
@@ -62,10 +61,9 @@ const Search = (props) => {
 
             if (! response.ok) {
                 message.error("Add history failed!")
-                console.log("Error", data["error-message"])
+                message.error(`Error: ${data["error-message"]}`)
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     }
 

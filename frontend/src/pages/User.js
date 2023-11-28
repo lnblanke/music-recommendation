@@ -2,6 +2,7 @@ import UserInfoForm from "../components/UserInfoForm";
 import MusicPreferenceWordCloud from "../components/MusicPreferenceWordCloud";
 import {useEffect} from "react";
 import React from 'react';
+import {message} from "antd";
 
 const User = (props) => {
     const {base_url, api_key, userInfo, setUserInfo, setGenre} = props
@@ -25,10 +26,9 @@ const User = (props) => {
                 if (response.ok) {
                     setPreferences(data["data"])
                 } else {
-                    console.log("Error", data["error-message"])
+                    message.error(`Error: ${data["error-message"]}`)
                 }
             } catch (e) {
-                console.log("Failed request: ", e)
             }
         }
 

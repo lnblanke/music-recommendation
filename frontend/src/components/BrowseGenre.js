@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Menu, Typography} from 'antd';
+import {Menu, message, Typography} from 'antd';
 import {useNavigate} from "react-router-dom";
 const {Title} = Typography
 
@@ -27,10 +27,9 @@ const BrowseGenre = (props) => {
                         label: item
                     })))
                 } else {
-                    console.log("Error", data["error-message"])
+                    message.error(`Error: ${data["error-message"]}`)
                 }
             } catch (e) {
-                console.log("Failed request: ", e)
             }
         }
 

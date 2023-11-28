@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ConfigProvider, Drawer, Layout, theme} from 'antd';
+import {ConfigProvider, Drawer, Layout, message, theme} from 'antd';
 import Login from "./pages/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Signup from "./pages/Signup";
@@ -38,8 +38,6 @@ const App = () => {
     const [genre, setGenre] = React.useState(null)
     const cookie = new Cookies()
 
-    console.log("Render")
-
     useEffect(() => {
         if (loadCookie) return;
 
@@ -60,10 +58,9 @@ const App = () => {
                     await setUserInfo(data["data"])
                     await setLoadCookie(true)
                 } else {
-                    console.log("Error", data["error-message"])
+                    message.error(`Error: ${data["error-message"]}`)
                 }
             } catch (e) {
-                console.log("Failed request: ", e)
             }
         }
 

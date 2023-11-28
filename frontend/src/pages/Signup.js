@@ -67,7 +67,6 @@ const App = (props) => {
                 message.error(data["error_message"])
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     };
     return (
