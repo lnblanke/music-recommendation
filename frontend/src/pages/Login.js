@@ -37,12 +37,11 @@ const Login = (props) => {
                 message.error(data["error_message"])
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     };
 
     const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        message.error(`Failed: ${errorInfo}`)
     };
 
     return (

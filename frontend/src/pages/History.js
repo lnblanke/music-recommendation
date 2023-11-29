@@ -20,7 +20,7 @@ const History = ({userInfo, base_url, api_key}) => {
             let data = await (response.json())
 
             if (!response.ok) {
-                console.log("Error", data["error-message"])
+                message.error(`Error: ${data["error-message"]}`)
                 return;
             }
 
@@ -44,10 +44,9 @@ const History = ({userInfo, base_url, api_key}) => {
             if (response.ok) {
                 setItems(songs["data"])
             } else {
-                console.log("Error", data["error-message"])
+                message.error(`Error: ${data["error-message"]}`)
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     }
 
@@ -74,16 +73,13 @@ const History = ({userInfo, base_url, api_key}) => {
 
         try {
             const response = await (fetch(base_url + `/add-history`, request))
-            const data = await (response.json())
 
             if (!response.ok) {
                 message.error("Add history failed!")
-                console.log("Error", data["error-message"])
             } else {
                 await get_history(true)
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     }
 
@@ -105,16 +101,13 @@ const History = ({userInfo, base_url, api_key}) => {
 
         try {
             const response = await (fetch(base_url + `/delete-history`, request))
-            const data = await (response.json())
 
             if (!response.ok) {
                 message.error("Delete history failed!")
-                console.log("Error", data["error-message"])
             } else {
                 await get_history(true)
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     }
 

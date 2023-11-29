@@ -12,7 +12,7 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
             setItems(null)
 
             try {
-                let ids = []
+                let ids;
                 if (genre == null) {
                     let data = []
                     const userInfo = getUserInfo()
@@ -29,7 +29,7 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
                         data = await (response.json())
 
                         if (!response.ok) {
-                            console.log("Error", data["error-message"])
+                            message.error(`Error: ${data["error-message"]}`)
                             return;
                         }
 
@@ -50,7 +50,7 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
                     data = await (response.json())
 
                     if (!response.ok) {
-                        console.log("Error", data["error-message"])
+                        message.error(`Error: ${data["error-message"]}`)
                         return;
                     }
 
@@ -82,10 +82,9 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
                 if (response.ok) {
                     setItems(songs["data"])
                 } else {
-                    console.log("Error", songs["error-message"])
+                    message.error(`Error: ${songs["error-message"]}`)
                 }
             } catch (e) {
-                console.log("Failed request: ", e)
             }
         }
 
@@ -111,14 +110,11 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
 
         try {
             const response = await (fetch(base_url + `/add-history`, request))
-            const data = await (response.json())
 
             if (! response.ok) {
                 message.error("Add history failed!")
-                console.log("Error", data["error-message"])
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     }
 

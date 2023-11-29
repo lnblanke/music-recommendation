@@ -19,7 +19,6 @@ const Analyze = (props) => {
         try {
             await (fetch(`https://xpu7xvvdcg.execute-api.us-east-2.amazonaws.com/dev/aws-music-upload/${uploadTS}.mp3`, request))
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     }
 
@@ -50,7 +49,6 @@ const Analyze = (props) => {
             }
         } catch (e) {
             message.error("API call timeout. Please try again")
-            console.log("Failed request: ", e)
         }
 
         await remove_file()
@@ -79,11 +77,10 @@ const Analyze = (props) => {
                 if (response.ok) {
                     await setRelated(songs["data"])
                 } else {
-                    console.log("Error", data["error-message"])
+                    message.error(`Error: ${data["error-message"]}`)
                     setRelated(null)
                 }
             } catch (e) {
-                console.log("Failed request: ", e)
                 setRelated(null)
             }
         })
@@ -108,14 +105,11 @@ const Analyze = (props) => {
 
         try {
             const response = await (fetch(base_url + `/add-history`, request))
-            const data = await (response.json())
 
             if (! response.ok) {
                 message.error("Add history failed!")
-                console.log("Error", data["error-message"])
             }
         } catch (e) {
-            console.log("Failed request: ", e)
         }
     }
 

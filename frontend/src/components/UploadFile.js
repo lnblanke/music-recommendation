@@ -55,10 +55,10 @@ const UploadFile = (prop) => {
                     icon = {<UploadOutlined/>}
                     size = "middle"
                     style = {{
-                        marginLeft: 20,
-                        marginRight: 20,
-                        width: 260
-                    }}
+                    marginLeft: 20,
+                    marginRight: 20,
+                    width: 260
+                }}
                 >Click to Upload</Button>
             </Upload>
         </>
