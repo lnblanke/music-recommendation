@@ -1,15 +1,23 @@
 import MusicCard from "../components/MusicCard";
-import React, {useEffect} from "react";
-import {message, Skeleton} from "antd";
+import React, {useCallback, useEffect} from "react";
+import {Button, FloatButton, message, Skeleton} from "antd";
+import {ArrowUpOutlined, ReloadOutlined} from "@ant-design/icons";
 
 const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
     const [items, setItems] = React.useState(null)
+    const [reload, setReload] = React.useState(false)
 
     useEffect(() => {
+        window.scroll({
+            top: 0,
+            behavior: "smooth"
+        })
+
         const get_recommend = async () => {
             if (! loadCookie) return;
 
             setItems(null)
+            setReload(false)
 
             try {
                 let ids;
@@ -89,9 +97,9 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
         }
 
         get_recommend().catch(console.error)
-    }, [genre, base_url, api_key, getUserInfo, loadCookie, ml_url]);
+    }, [genre, base_url, api_key, getUserInfo, loadCookie, ml_url, reload]);
 
-    const addHistory = async (track_id) => {
+    const addHistory = useCallback(async (track_id) => {
         if (getUserInfo() == null) return;
 
         const user_id = getUserInfo()["user_id"]
@@ -116,11 +124,19 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
             }
         } catch (e) {
         }
-    }
+    }, [getUserInfo, base_url, api_key])
 
     return React.useMemo(() => (
-        <div>
+        <div style={{textAlign: "right"}}>
+            <Button style = {{marginLeft: "20px", marginRight: "30px"}} onClick = {() => setReload(true)}>
+                <ReloadOutlined/>
+                Reload
+            </Button>
             {items == null? <Skeleton active/>: items.map(prop => <MusicCard key={"MusicCard" + prop["id"]} {...prop} addHistory = {addHistory}/>)}
+            <FloatButton
+                icon = {<ArrowUpOutlined/>}
+                onClick = {() => window.scroll({top: 0, behavior: "smooth"})}
+            />
         </div>
         ), [items, addHistory]
     )

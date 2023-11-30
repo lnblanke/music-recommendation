@@ -6,7 +6,7 @@ const {Title} = Typography
 
 const UploadFile = (prop) => {
     const navigate = useNavigate()
-    const {setUploadTS, setAnalyzed, api_key} = prop
+    const {setUploadTS, setAnalyzed, setGenre, api_key} = prop
     const [ts, setTS] = React.useState(null)
 
     const props = {
@@ -22,6 +22,7 @@ const UploadFile = (prop) => {
                 message.success(`${info.file.name} file uploaded successfully`);
                 setUploadTS(ts)
                 setAnalyzed(false)
+                setGenre(null)
                 navigate("/analyze")
                 info.fileList.pop()
             } else if (info.file.status === 'error') {

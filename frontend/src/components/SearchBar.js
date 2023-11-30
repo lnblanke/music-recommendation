@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 const {Search} = Input;
 
 const SearchBar = (props) => {
-    const {setPrompt, setSearched} = props
+    const {setPrompt, setSearched, setGenre} = props
     const navigate = useNavigate()
 
     const onSearch = (value, _) => {
@@ -13,6 +13,7 @@ const SearchBar = (props) => {
 
         setPrompt(value)
         setSearched(false)
+        setGenre(null)
         navigate("/search")
     }
 
