@@ -1,14 +1,16 @@
-import React, {useEffect, useMemo} from 'react';
-import {Empty, message} from 'antd';
+import React, {useCallback, useEffect, useMemo} from 'react';
+import {Empty, FloatButton, message, Skeleton} from 'antd';
 import MusicCard from "../components/MusicCard";
+import {ArrowUpOutlined} from "@ant-design/icons";
 
 const Search = (props) => {
     const {prompt, setPrompt, searched, setSearched, userInfo, base_url, api_key} = props
     const [item, setItem] = React.useState(null)
 
-    const search = async () => {
+    const search = useCallback(async () => {
         if (prompt == null || searched) return
 
+        setItem(null)
         setSearched(true)
 
         const request = {
@@ -32,13 +34,18 @@ const Search = (props) => {
         }
 
         await setPrompt(false)
-    }
+    }, [prompt, searched, base_url, api_key, setSearched, setPrompt])
 
     useEffect(() => {
         search().catch(console.error)
+
+        window.scroll({
+            top: 0,
+            behavior: "smooth"
+        })
     }, [prompt, search]);
 
-    const addHistory = async (track_id) => {
+    const addHistory = useCallback(async (track_id) => {
         if (userInfo == null) return;
 
         const user_id = userInfo["user_id"]
@@ -65,15 +72,20 @@ const Search = (props) => {
             }
         } catch (e) {
         }
-    }
+    }, [userInfo, base_url, api_key])
 
     return useMemo(() => (
         prompt === null || prompt.length === 0 ? (<Empty/>) :
             (
                 <div style = {{textAlign: "center"}}>
                     <h2 style = {{textAlign: "left", padding: "20px"}}> Result of {prompt} </h2>
-                    {item === null ? item : item.map(prop => <MusicCard
+                    {item === null ? <Skeleton active/> : item.map(prop => <MusicCard
                         key = {"MusicCard" + prop["id"]} {...prop} addHistory = {addHistory}/>)}
+
+                    <FloatButton
+                        icon = {<ArrowUpOutlined/>}
+                        onClick = {() => window.scroll({top: 0, behavior: "smooth"})}
+                    />
                 </div>
             )
     ), [prompt, item, addHistory]);

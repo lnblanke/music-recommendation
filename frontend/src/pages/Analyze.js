@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {LoadingOutlined} from '@ant-design/icons';
 import {Empty, message, Spin} from 'antd';
 import MusicCard from "../components/MusicCard";
@@ -84,9 +84,14 @@ const Analyze = (props) => {
                 setRelated(null)
             }
         })
+
+        window.scroll({
+            top: 0,
+            behavior: "smooth"
+        })
     });
 
-    const addHistory = async (track_id) => {
+    const addHistory = useCallback(async (track_id) => {
         if (getUserInfo() == null) return;
 
         const user_id = getUserInfo()["user_id"]
@@ -111,7 +116,7 @@ const Analyze = (props) => {
             }
         } catch (e) {
         }
-    }
+    }, [getUserInfo, base_url, api_key])
 
     return useMemo(() => (
         uploadTS === null ? (<Empty/>) :

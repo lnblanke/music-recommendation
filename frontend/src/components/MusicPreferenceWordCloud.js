@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import ReactWordcloud from "react-wordcloud";
 import {useNavigate} from "react-router-dom";
 
@@ -6,7 +6,7 @@ const MusicPreferenceWordCloud = (props) => {
     const {preferences, setGenre} = props
     const navigate = useNavigate()
 
-    return (
+    return useMemo(() => (
         preferences ?
             (<div>
                 <h2> Music Preference </h2>
@@ -21,7 +21,7 @@ const MusicPreferenceWordCloud = (props) => {
                     }}
                 />
             </div>) : <div/>
-    );
+    ), [preferences, navigate, setGenre]);
 };
 
 export default MusicPreferenceWordCloud;

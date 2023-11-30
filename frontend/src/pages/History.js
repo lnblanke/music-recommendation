@@ -1,11 +1,11 @@
 import MusicCard from "../components/MusicCard";
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {message, Skeleton, Empty} from "antd";
 
 const History = ({userInfo, base_url, api_key}) => {
     const [items, setItems] = React.useState(null)
 
-    const get_history = async (force = false) => {
+    const get_history = useCallback(async (force = false) => {
         if ((! force && items != null )|| userInfo == null) return;
 
         let request = {
@@ -48,13 +48,18 @@ const History = ({userInfo, base_url, api_key}) => {
             }
         } catch (e) {
         }
-    }
+    }, [items, userInfo, base_url, api_key])
 
     useEffect(() => {
         get_history().catch(console.error)
-    });
 
-    const addHistory = async (track_id) => {
+        window.scroll({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [get_history]);
+
+    const addHistory = useCallback(async (track_id) => {
         if (userInfo == null) return;
 
         const user_id = userInfo["user_id"]
@@ -81,9 +86,9 @@ const History = ({userInfo, base_url, api_key}) => {
             }
         } catch (e) {
         }
-    }
+    }, [userInfo, base_url, api_key, get_history])
 
-    const deleteHistory = async (track_id) => {
+    const deleteHistory = useCallback(async (track_id) => {
         if (userInfo == null) return;
 
         const user_id = userInfo["user_id"]
@@ -109,7 +114,7 @@ const History = ({userInfo, base_url, api_key}) => {
             }
         } catch (e) {
         }
-    }
+    }, [userInfo, base_url, api_key, get_history])
 
     return React.useMemo(() => (
             <div>

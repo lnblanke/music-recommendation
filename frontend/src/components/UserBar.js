@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const UserBar = (props) => {
-    const {userInfo, setUserInfo, setLogin, setCollapse} = props
+    const {userInfo, setUserInfo, setLogin, setCollapse, setGenre} = props
     const navigate = useNavigate()
     const cookie = new Cookies()
     const item = [
@@ -30,10 +30,12 @@ const UserBar = (props) => {
         switch (item["key"]) {
             case "0":
                 setCollapse(true)
+                setGenre(null)
                 navigate("/user")
                 break
             case "1":
                 setCollapse(true)
+                setGenre(null)
                 navigate("/history")
                 break
             case "2":
@@ -43,6 +45,7 @@ const UserBar = (props) => {
                 cookie.remove("user")
                 navigate("/")
                 break
+            default:
         }
     }
 

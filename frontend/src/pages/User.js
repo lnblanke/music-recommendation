@@ -33,6 +33,11 @@ const User = (props) => {
         }
 
         getPreferences().catch(console.error)
+
+        window.scroll({
+            top: 0,
+            behavior: "smooth"
+        })
     }, [userInfo, base_url, api_key]);
 
     return React.useMemo(() => (

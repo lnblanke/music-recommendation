@@ -6,6 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="9d1b7d4d-0789-45e0-aa30-3384641537bd" name="Changes" comment="Implement website layout and login/signup features">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/MusicPreferenceWordCloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MusicPreferenceWordCloud.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserInfoForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserInfoForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Analyze.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Analyze.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/History.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/User.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,6 +137,7 @@
       <workItem from="1701111976813" duration="1002000" />
       <workItem from="1701130952706" duration="7881000" />
       <workItem from="1701206766738" duration="185000" />
+      <workItem from="1701371572430" duration="2507000" />
     </task>
     <task id="LOCAL-00001" summary="Implement website layout and login/signup features">
       <option name="closed" value="true" />

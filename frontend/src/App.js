@@ -36,7 +36,6 @@ const App = () => {
     const [prompt, setPrompt] = React.useState(null)
     const [searched, setSearched] = React.useState(false)
     const [genre, setGenre] = React.useState(null)
-    const cookie = new Cookies()
 
     useEffect(() => {
         if (loadCookie) return;
@@ -64,9 +63,11 @@ const App = () => {
             }
         }
 
+        const cookie = new Cookies()
+
         if (cookie.get("user") !== undefined) getUser(cookie.get("user")).catch(console.error)
         else setLoadCookie(true)
-    }, [loadCookie, cookie])
+    }, [loadCookie])
 
     return (
         <ConfigProvider
@@ -89,11 +90,12 @@ const App = () => {
                     width = {300}
                     theme = {"light"}
                 >
-                    <SearchBar setPrompt = {setPrompt} setSearched = {setSearched}/>
+                    <SearchBar setPrompt = {setPrompt} setSearched = {setSearched} setGenre = {setGenre}/>
                     <UploadFile
                         uploadTS = {uploadTS}
                         setUploadTS = {setUploadTS}
                         setAnalyzed = {setAnalyzed}
+                        setGenre = {setGenre}
                         api_key = {api_key}
                     />
                     <BrowseGenre
@@ -208,6 +210,7 @@ const App = () => {
                                      setLogin = {setLogin}
                                      setUserInfo = {setUserInfo}
                                      setCollapse = {setCollapse}
+                                     setGenre = {setGenre}
                             />
                         </Drawer>) : (<div/>)
                 }

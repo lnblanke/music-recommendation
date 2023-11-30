@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Input, List, message, Modal, Select, Typography} from 'antd';
+import {Button, Form, Input, List, message, Modal, Select, Typography} from 'antd';
 import {EditOutlined} from "@ant-design/icons";
 import {useForm} from "antd/es/form/Form";
 
@@ -73,7 +73,14 @@ const UserInfoForm = (props) => {
 
     return (
         <div>
-            <h2> User Info <a onClick = {() => setOpenModal(true)}> <EditOutlined/> </a></h2>
+            <h2> User Info
+                <Button
+                    type = "link"
+                    shape = "circle"
+                    size = "large"
+                    onClick = {() => setOpenModal(true)}
+                > <EditOutlined/> </Button>
+            </h2>
             <List
                 itemLayout = "horizontal"
                 dataSource = {show_data}
