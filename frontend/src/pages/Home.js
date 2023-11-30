@@ -5,7 +5,7 @@ import {ArrowUpOutlined, ReloadOutlined} from "@ant-design/icons";
 
 const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
     const [items, setItems] = React.useState(null)
-    const [reload, setReload] = React.useState(false)
+    const [update, setUpdate] = React.useState(null)
 
     useEffect(() => {
         window.scroll({
@@ -17,7 +17,6 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
             if (! loadCookie) return;
 
             setItems(null)
-            setReload(false)
 
             try {
                 let ids;
@@ -97,7 +96,7 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
         }
 
         get_recommend().catch(console.error)
-    }, [genre, base_url, api_key, getUserInfo, loadCookie, ml_url, reload]);
+    }, [genre, base_url, api_key, getUserInfo, loadCookie, ml_url, update]);
 
     const addHistory = useCallback(async (track_id) => {
         if (getUserInfo() == null) return;
@@ -128,9 +127,9 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
 
     return React.useMemo(() => (
         <div style={{textAlign: "right"}}>
-            <Button style = {{marginLeft: "20px", marginRight: "30px"}} onClick = {() => setReload(true)}>
+            <Button style = {{marginLeft: "20px", marginRight: "30px"}} onClick={() => setUpdate(new Date().getTime())}>
                 <ReloadOutlined/>
-                Reload
+                Change
             </Button>
             {items == null? <Skeleton active/>: items.map(prop => <MusicCard key={"MusicCard" + prop["id"]} {...prop} addHistory = {addHistory}/>)}
             <FloatButton
