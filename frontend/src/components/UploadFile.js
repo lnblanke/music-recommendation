@@ -11,7 +11,7 @@ const UploadFile = (prop) => {
 
     const props = {
         name: 'file',
-        action: `https://xpu7xvvdcg.execute-api.us-east-2.amazonaws.com/dev/aws-music-upload/${ts}.mp3`,
+        action: `https://xpu7xvvdcg.execute-api.us-east-2.amazonaws.com/prod/aws-music-upload/${ts}.mp3`,
         headers: {
             "x-api-key": api_key,
             "X-Requested-With": null,

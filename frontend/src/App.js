@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ConfigProvider, Drawer, Layout, message, theme} from 'antd';
+import {ConfigProvider, Drawer, FloatButton, Layout, message, theme} from 'antd';
 import Login from "./pages/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Signup from "./pages/Signup";
@@ -16,6 +16,7 @@ import NotFound from "./pages/404";
 import History from "./pages/History"
 import Search from "./pages/Search";
 import BrowseGenre from "./components/BrowseGenre";
+import {ArrowUpOutlined} from "@ant-design/icons";
 
 const {Content, Sider} = Layout;
 const base_url = "https://d7mnlmmxka.execute-api.us-east-2.amazonaws.com/dev"
@@ -197,6 +198,10 @@ const App = () => {
                                 <Route path = "*" element = {<Navigate to = "/404"/>}></Route>
                             </Routes>
                         </div>
+                        <FloatButton
+                            icon = {<ArrowUpOutlined/>}
+                            onClick = {() => window.scroll({top: 0, behavior: "smooth"})}
+                        />
                     </Content>
                 </Layout>
 

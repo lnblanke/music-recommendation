@@ -17,7 +17,7 @@ const Analyze = (props) => {
         }
 
         try {
-            await (fetch(`https://xpu7xvvdcg.execute-api.us-east-2.amazonaws.com/dev/aws-music-upload/${uploadTS}.mp3`, request))
+            await (fetch(`https://xpu7xvvdcg.execute-api.us-east-2.amazonaws.com/prod/aws-music-upload/${uploadTS}.mp3`, request))
         } catch (e) {
         }
     }

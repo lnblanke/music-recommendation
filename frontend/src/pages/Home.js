@@ -1,7 +1,7 @@
 import MusicCard from "../components/MusicCard";
 import React, {useCallback, useEffect} from "react";
-import {Button, FloatButton, message, Skeleton} from "antd";
-import {ArrowUpOutlined, ReloadOutlined} from "@ant-design/icons";
+import {Button, message, Skeleton} from "antd";
+import {ReloadOutlined} from "@ant-design/icons";
 
 const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
     const [items, setItems] = React.useState(null)
@@ -132,10 +132,6 @@ const Home = ({getUserInfo, loadCookie, genre, base_url, ml_url, api_key}) => {
                 Change
             </Button>
             {items == null? <Skeleton active/>: items.map(prop => <MusicCard key={"MusicCard" + prop["id"]} {...prop} addHistory = {addHistory}/>)}
-            <FloatButton
-                icon = {<ArrowUpOutlined/>}
-                onClick = {() => window.scroll({top: 0, behavior: "smooth"})}
-            />
         </div>
         ), [items, addHistory]
     )

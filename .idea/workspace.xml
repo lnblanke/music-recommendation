@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d1b7d4d-0789-45e0-aa30-3384641537bd" name="Changes" comment="Implement website layout and login/signup features">
+    <list default="true" id="9d1b7d4d-0789-45e0-aa30-3384641537bd" name="Changes" comment="Fix minor bug in reload">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lambda-pytorch/analyze/config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UploadFile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Analyze.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Analyze.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Search.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +133,8 @@
       <workItem from="1701130952706" duration="7881000" />
       <workItem from="1701206766738" duration="185000" />
       <workItem from="1701371572430" duration="2507000" />
-      <workItem from="1701379537375" duration="618000" />
+      <workItem from="1701379537375" duration="1460000" />
+      <workItem from="1701470006255" duration="80000" />
     </task>
     <task id="LOCAL-00001" summary="Implement website layout and login/signup features">
       <option name="closed" value="true" />
@@ -156,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697234352869</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fix minor bug in reload">
+      <option name="closed" value="true" />
+      <created>1701380421803</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701380421804</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +214,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Implement website layout and login/signup features" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement website layout and login/signup features" />
+    <MESSAGE value="Fix minor bug in reload" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix minor bug in reload" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -210,6 +223,11 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/components/UserBar.js</url>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/frontend/src/pages/Home.js</url>
+          <line>114</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
