@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {Empty, FloatButton, message, Skeleton} from 'antd';
+import {Empty, message, Skeleton} from 'antd';
 import MusicCard from "../components/MusicCard";
-import {ArrowUpOutlined} from "@ant-design/icons";
 
 const Search = (props) => {
     const {prompt, setPrompt, searched, setSearched, userInfo, base_url, api_key} = props
@@ -81,11 +80,6 @@ const Search = (props) => {
                     <h2 style = {{textAlign: "left", padding: "20px"}}> Result of {prompt} </h2>
                     {item === null ? <Skeleton active/> : item.map(prop => <MusicCard
                         key = {"MusicCard" + prop["id"]} {...prop} addHistory = {addHistory}/>)}
-
-                    <FloatButton
-                        icon = {<ArrowUpOutlined/>}
-                        onClick = {() => window.scroll({top: 0, behavior: "smooth"})}
-                    />
                 </div>
             )
     ), [prompt, item, addHistory]);
